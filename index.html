@@ -4499,8 +4499,25 @@ const _l=NVS.late;NVS.late=(dt,tt)=>{_l(dt,tt);try{
  if(!canStart()){lastIn=Math.max(lastIn,now-IDLE+3000);return}
  if(now-lastIn>IDLE&&now-lastEnd>GAP){if(begin())lastIn=now;else lastIn=now-IDLE+8000}
 }catch(e){console.warn("games",e);if(G){for(const r of G.ps)r.gm=0;G=null}hideMk()}};
-window.__play={go:(k)=>begin(k),get G(){return G},setIdle:()=>{lastIn=performance.now()-IDLE-1;lastEnd=0}};
+window.__play={go:(k,direct)=>{const ok=begin(k);if(ok&&direct){const g=G;g.said=true;g.at=g.t-10;try{me("\u{1F388} Oyun ba\u015Fl\u0131yor!");say("Haydi oynayal\u0131m!",g.spk.idx,1.05,true)}catch{}}return ok},get G(){return G},setIdle:()=>{lastIn=performance.now()-IDLE-1;lastEnd=0}};
 }catch(e){console.warn("games init",e)}})();
+;(()=>{try{
+const bar=document.querySelector(".bar");if(!bar)return;
+const st=document.createElement("style");st.textContent="#bPlay{position:relative}#playMenu{position:absolute;bottom:calc(84px + var(--sab));left:50%;transform:translateX(-50%);display:none;flex-direction:column;gap:8px;background:var(--card);padding:12px;border-radius:22px;box-shadow:0 5px 0 #0003,0 12px 30px #0003;pointer-events:auto;z-index:30;min-width:210px}#playMenu.open{display:flex}#playMenu h4{margin:0 0 2px;text-align:center;font:800 15px inherit;color:var(--ink)}#playMenu button{border:0;background:#fff8;color:var(--ink);font:800 15px inherit;border-radius:14px;padding:11px 14px;box-shadow:0 3px 0 #0002;cursor:pointer;text-align:left}#playMenu button:active{transform:translateY(2px);box-shadow:0 1px 0 #0002}";document.head.appendChild(st);
+const b=document.createElement("button");b.className="btn";b.id="bPlay";b.innerHTML="<span>\u{1F388}</span>Oyun";
+const m=document.createElement("div");m.id="playMenu";
+m.innerHTML='<h4>Miniklerle oyun</h4><button data-k="tag">\u{1F3C3} Ebelemece</button><button data-k="blind">\u{1F648} Körebe</button><button data-k="hide">\u{1F575}️ Saklambaç</button><button data-k="rand">\u{1F3B2} Sen seçme</button>';
+bar.appendChild(b);(document.getElementById("hud")||document.body).appendChild(m);
+const close=()=>m.classList.remove("open");
+b.onclick=(e)=>{e.stopPropagation();m.classList.toggle("open")};
+m.onclick=(e)=>{e.stopPropagation();const k=e.target.closest&&e.target.closest("button");if(!k)return;close();
+ const kind=k.dataset.k==="rand"?undefined:k.dataset.k;
+ if(window.__play.G){me("Zaten oyun var, katılıyoruz! \u{1F388}");return}
+ if(Vr()){me("Şş… minikler uyuyor \u{1F319} sabah oynarsınız");return}
+ if(NVS.ride||NVS.sit||le.swim){me("Önce kaydırak/oturak/yüzmeyi bırak, sonra oynayalım \u{1F43E}");return}
+ if(!window.__play.go(kind,true))me("Yakında yeterince mini yok; biraz dolaşıp dostlar bul \u{1F43E}")};
+addEventListener("pointerdown",e=>{if(m.classList.contains("open")&&!m.contains(e.target)&&e.target!==b&&!b.contains(e.target))close()});
+}catch(e){console.warn("playbtn",e)}})();
 window.__Be=Be;window.__nvs=NVS;Iv();await or(.98,"Son r\xF6tu\u015Flar\u2026");await new Promise(i=>requestAnimationFrame(()=>requestAnimationFrame(i)));Gy(1,"Haz\u0131r! \u{1F308}");clearInterval(TS);setTimeout(()=>{let i=ne("title");i&&i.classList.add("ready");let t=ne("start");if(t&&t.focus)try{t.focus({preventScroll:!0})}catch{}},350);window.__dbgEnv={EX:()=>Lc.dbg,player:Qt,camera:Oe,setTod:i=>{je=i},get:()=>({tod:je}),setCam:i=>{window.__camOv=i}};window.__village=()=>Oc;window.__dbg={nodes:Xi,get S(){return U},addBond:sr,meetWild:yf,feedWild:ov,gatherNode:av,camera:Oe,composer:Oo,player:Qt,wild:Di,SPECIES:Cs,makeCreature:o0,scene:Se,THREE:gc,burst:ev,animCreature:a0};
 /*! Bundled license information:
 
