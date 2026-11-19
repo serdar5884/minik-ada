@@ -4382,7 +4382,7 @@ let lastSay=0;
 const say=(txt,idx=0,rate=1.05,force=false)=>{const v=fxv();if(!v||!window.speechSynthesis)return;try{const ss=window.speechSynthesis;if(ss.speaking&&!force)return;if(force)ss.cancel();const u=new SpeechSynthesisUtterance(txt);u.lang="tr-TR";const vs=ss.getVoices().filter(x=>/^tr/i.test(x.lang));if(vs.length)u.voice=vs.find(x=>/female|kadın|yelda|emel/i.test(x.name))||vs[0];u.pitch=1.9+(idx%3)*.04;u.rate=rate;u.volume=Math.min(1,v+.25);ss.speak(u)}catch{}};
 let lastIn=performance.now();const inp=()=>{lastIn=performance.now()};
 for(const e of["pointerdown","pointermove","keydown","touchstart","wheel"])addEventListener(e,inp,{passive:true});
-const IDLE=20000,GAP=45000;let lastEnd=performance.now(),lastPos=new T.Vector3(),G=null,pickT=0;
+const IDLE=10000,GAP=45000;let lastEnd=performance.now(),lastPos=new T.Vector3(),G=null,pickT=0;
 const ND=r=>(Cs[r.idx]&&Cs[r.idx].ad)||"Dost";
 const mkHop=(r,d=.7)=>{r.hopT=d;r.hopD=d};
 const clampA=(G,x,z)=>{const dx=x-G.C.x,dz=z-G.C.z,d=Math.hypot(dx,dz);if(d>G.R){return[G.C.x+dx/d*G.R,G.C.z+dz/d*G.R]}return[x,z]};
